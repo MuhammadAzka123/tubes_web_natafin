@@ -1,32 +1,103 @@
-
 # NataFin
 
-## Topik
-Pengelolaan Keuangan Sehari-hari
+## Deskripsi Proyek
 
-## Nama Aplikasi
-NataFin
+NataFin adalah aplikasi web pengelolaan keuangan pribadi yang dirancang untuk membantu pengguna mencatat pemasukan dan pengeluaran, memantau tabungan, serta melihat ringkasan kondisi keuangan.
 
-## Deskripsi Aplikasi
+Proyek ini dikembangkan secara bertahap sebagai bagian dari tugas mata kuliah Pemrograman Web. Pada Tugas Minggu 5, aplikasi dikembangkan dengan menambahkan JavaScript dan jQuery untuk membuat halaman web lebih interaktif dan dinamis.
 
-NataFin adalah aplikasi web untuk membantu pengguna mengelola keuangan sehari-hari dengan lebih teratur. Aplikasi ini membantu pengguna mencatat pemasukan dan pengeluaran, melihat ringkasan keuangan, serta memantau target tabungan.
+## Fitur Aplikasi
 
-Dashboard menampilkan ringkasan pemasukan, pengeluaran, tabungan, sisa saldo, dan daftar transaksi. Halaman tambah transaksi menyediakan formulir untuk mencatat jenis transaksi, kategori, nominal, tanggal, dan keterangan transaksi.
+- **Dashboard:** Menampilkan ringkasan pemasukan, pengeluaran, tabungan, saldo, dan transaksi.
+- **Manajemen Transaksi:** Menambahkan dan menghapus transaksi pemasukan maupun pengeluaran.
+- **Pencarian Transaksi:** Mencari transaksi berdasarkan kata kunci.
+- **Filter Transaksi:** Menampilkan transaksi berdasarkan jenis pemasukan atau pengeluaran.
+- **Detail Keuangan:** Menampilkan ringkasan transaksi dan informasi kategori pengeluaran.
+- **Target Tabungan:** Menampilkan informasi target tabungan.
+- **Validasi Form:** Memeriksa kelengkapan data sebelum form diproses.
+- **Interaksi JavaScript dan jQuery:** Mengolah data transaksi, menangani event pengguna, menampilkan pesan, serta menjalankan efek tampil dan sembunyi pada form.
 
-Halaman detail keuangan menampilkan ringkasan keuangan, target tabungan, dan rincian pengeluaran berdasarkan kategori. Struktur aplikasi dikembangkan secara bertahap agar dapat dilanjutkan ke tahap pengembangan fullstack pada minggu berikutnya.
+## Teknologi yang Digunakan
 
-## Alasan Memilih Bootstrap
+- HTML5
+- CSS3
+- Bootstrap 5
+- JavaScript
+- jQuery 3.7.1
+- Local Storage untuk menyimpan data transaksi pada browser
 
-Bootstrap dipilih karena menyediakan komponen antarmuka siap pakai seperti navbar, card, tabel, form, tombol, dan berbagai utility class. Komponen tersebut membantu mempercepat pengembangan tampilan NataFin sehingga pengerjaan dapat lebih berfokus pada struktur dan kebutuhan aplikasi.
+## Struktur Folder
 
-Aplikasi NataFin memiliki beberapa halaman dengan fungsi yang berbeda, sehingga sistem grid Bootstrap menggunakan `container`, `row`, dan `col` membantu mengatur tata letak ringkasan keuangan, tabel, dan formulir. Komponen responsifnya juga membantu menyesuaikan tampilan dari desktop ke perangkat mobile.
+```text
+natafin/
+├── assets/
+│   ├── css/
+│   │   └── style.css
+│   └── img/
+│       └── logo_natafin.png
+├── docs/
+│   └── screenshots/
+│       ├── minggu-2/
+│       ├── minggu-3/
+│       ├── minggu-4/
+│       └── minggu-5/
+├── pages/
+│   ├── akun/
+│   │   ├── login.html
+│   │   ├── logout.html
+│   │   ├── profil.html
+│   │   └── register.html
+│   ├── keuangan/
+│   │   └── detail.html
+│   └── transaksi/
+│       └── transaksi.html
+├── .gitignore
+├── index.html
+├── README.md
+└── script.js
+```
 
-Bootstrap digunakan melalui CDN sehingga dapat diterapkan tanpa proses build tambahan pada tahap frontend ini. Penggunaan Bootstrap juga memudahkan pengembangan berikutnya ketika NataFin mulai dihubungkan dengan backend dan database.
+## Cara Menjalankan Aplikasi
 
-## Screenshot
+1. Clone atau download repository NataFin dari GitHub.
+2. Buka folder proyek menggunakan Visual Studio Code.
+3. Jalankan file `index.html` menggunakan ekstensi Live Server.
+4. Aplikasi akan terbuka melalui browser.
+5. Coba fitur yang tersedia, seperti melihat ringkasan keuangan, menambahkan transaksi, melakukan pencarian dan filter, menghapus transaksi, serta menguji validasi form.
 
-Screenshot setiap tahap pengembangan tersimpan di folder `docs/screenshots`:
+## Implementasi JavaScript dan jQuery
 
-- `minggu-2`: struktur HTML tanpa CSS.
-- `minggu-3`: styling menggunakan CSS native, dengan tampilan desktop dan mobile.
-- `minggu-4`: kerangka tampilan menggunakan Bootstrap, dengan tampilan desktop dan mobile.
+Pada pengembangan Tugas Minggu 5, JavaScript digunakan untuk mengolah data transaksi, menghitung ringkasan keuangan, dan menampilkan data secara dinamis ke halaman web.
+
+JavaScript juga digunakan untuk melakukan pencarian dan filter transaksi, menangani penambahan serta penghapusan transaksi, dan memvalidasi input pengguna sebelum diproses.
+
+Sementara itu, jQuery digunakan untuk menangani event pengguna, menjalankan efek tampil dan sembunyi pada form, serta menampilkan pesan validasi. Data transaksi disimpan menggunakan Local Storage agar tetap tersedia ketika halaman dibuka kembali pada browser yang sama.
+
+## Dokumentasi Screenshot
+
+Dokumentasi screenshot pengembangan NataFin disimpan dalam folder berikut:
+
+`docs/screenshots/`
+
+Screenshot dikelompokkan berdasarkan minggu pengerjaan, yaitu:
+
+- `docs/screenshots/minggu-2/`
+- `docs/screenshots/minggu-3/`
+- `docs/screenshots/minggu-4/`
+- `docs/screenshots/minggu-5/`
+
+Dokumentasi Minggu 5 mencakup pengujian interaktivitas aplikasi, seperti efek tampil dan sembunyi form, penambahan transaksi, pencarian dan filter, penghapusan transaksi, serta validasi form.
+
+## Video Demonstrasi
+
+Video demonstrasi interaktivitas NataFin untuk Tugas Minggu 5 dapat ditonton melalui tautan berikut:
+
+**https://drive.google.com/drive/folders/105IiEub5SnkWG1rpdCUArmDDxrm2BUhx?usp=sharing**
+
+Video disimpan di Google Drive dalam folder `Dokumentasi_Web_NataFin` dengan nama file `Demonstrasi_Minggu_5.mp4`.
+
+## Catatan
+
+NataFin merupakan proyek pembelajaran yang dikembangkan secara bertahap. Fitur akun berupa simulasi antarmuka dan validasi form, belum menggunakan sistem autentikasi atau database pada server.
+
+---

@@ -1,12 +1,23 @@
+
 :root {
     --natafin-navy: #102A43;
     --natafin-navy-dark: #0B1F33;
+    --natafin-navy-soft: #526B84;
     --natafin-gold: #D4AF37;
-    --natafin-gold-dark: #B38B1D;
-    --natafin-bg: #F5F7FA;
+    --natafin-gold-dark: #8F6D12;
+    --natafin-bg: #F7F4EC;
     --natafin-text: #263238;
-    --natafin-border: #D7DEE7;
-    --natafin-pale-gold: #F8F4E8;
+    --natafin-border: #E2D8BA;
+    --natafin-pale-gold: #FBF6E7;
+    --natafin-pale-navy: #E9EEF4;
+    --natafin-green: #198754;
+    --natafin-green-light: #D1E7DD;
+    --natafin-red: #DC3545;
+    --natafin-red-light: #F8D7DA;
+}
+
+* {
+    box-sizing: border-box;
 }
 
 body {
@@ -16,43 +27,26 @@ body {
     background-color: var(--natafin-bg);
 }
 
-.navbar-natafin {
-    background-color: var(--natafin-navy);
-}
-
-.navbar-natafin .navbar-brand {
-    color: #FFFFFF;
-    font-size: 1.6rem;
-    font-weight: bold;
-}
-
-.navbar-natafin .nav-link {
-    padding: 0.65rem 0.9rem;
-    color: #FFFFFF;
-    font-weight: 600;
-}
-
-.navbar-natafin .nav-link:hover,
-.navbar-natafin .nav-link.active {
-    color: var(--natafin-gold);
-}
-
 .section-title {
     color: var(--natafin-navy);
     font-size: 1.45rem;
     font-weight: 700;
 }
 
-.eyebrow {
-    margin-bottom: 0.5rem;
+.content-link {
     color: var(--natafin-gold-dark);
-    font-size: 0.8rem;
     font-weight: 700;
-    letter-spacing: 1px;
+    text-decoration: none;
+}
+
+.content-link:hover {
+    color: var(--natafin-navy);
+    text-decoration: underline;
 }
 
 .hero-card,
 .content-card {
+    border: 1px solid var(--natafin-border);
     border-radius: 12px;
     background-color: #FFFFFF;
 }
@@ -70,7 +64,8 @@ body {
     font-weight: 700;
 }
 
-.btn-gold:hover {
+.btn-gold:hover,
+.btn-gold:focus {
     border-color: var(--natafin-gold-dark);
     background-color: var(--natafin-gold-dark);
     color: #FFFFFF;
@@ -83,12 +78,13 @@ body {
 }
 
 .btn-outline-navy:hover {
+    border-color: var(--natafin-navy);
     background-color: var(--natafin-navy);
     color: #FFFFFF;
 }
 
 .summary-card {
-    border: 1px solid #E5D7A5;
+    border: 1px solid var(--natafin-border);
     border-radius: 10px;
     background-color: var(--natafin-pale-gold);
 }
@@ -105,17 +101,6 @@ body {
     color: var(--natafin-navy);
     font-size: 1.35rem;
     font-weight: 700;
-}
-
-.content-link {
-    color: var(--natafin-gold-dark);
-    font-weight: 700;
-    text-decoration: none;
-}
-
-.content-link:hover {
-    color: var(--natafin-navy);
-    text-decoration: underline;
 }
 
 .table-natafin th {
@@ -144,10 +129,495 @@ body {
     padding: 1.25rem 0;
     background-color: var(--natafin-navy);
     color: #FFFFFF;
+    border-top: 3px solid var(--natafin-gold);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.app-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    background-color: var(--natafin-navy);
+    border-bottom: 3px solid var(--natafin-gold);
+}
+
+.app-navbar .container-fluid {
+    min-height: 64px;
+}
+
+.menu-toggle {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-shrink: 0;
+    margin-right: 14px;
+    padding: 8px;
+    border: 1px solid var(--natafin-gold);
+    border-radius: 8px;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    border-radius: 2px;
+    background-color: var(--natafin-navy);
+}
+
+.menu-toggle:hover {
+    border-color: var(--natafin-gold);
+    background-color: var(--natafin-pale-gold);
+}
+
+.menu-toggle:focus-visible {
+    outline: 3px solid rgba(212, 175, 55, 0.4);
+    outline-offset: 2px;
+}
+
+.brand-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand-placeholder {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    border: 1px dashed var(--natafin-gold);
+    border-radius: 8px;
+    background-color: #FFFFFF;
+}
+
+.app-brand {
+    display: inline-flex;
+    align-items: center;
+    color: var(--natafin-navy);
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.app-navbar .app-brand {
+    color: #FFFFFF;
+}
+
+.app-navbar .app-brand:hover {
+    color: var(--natafin-gold);
+}
+
+.app-brand:hover,
+.app-brand:focus {
+    text-decoration: none;
+}
+
+.app-offcanvas {
+    width: 285px !important;
+    border: 0;
+    background-color: #FFFFFF;
+}
+
+.app-offcanvas .offcanvas-header {
+    min-height: 64px;
+    border-bottom: 2px solid var(--natafin-gold);
+}
+
+.app-offcanvas .offcanvas-title {
+    margin: 0;
+}
+
+.app-offcanvas .offcanvas-body {
+    padding: 1.25rem;
+}
+
+.menu-heading {
+    margin: 0.4rem 0 0.7rem;
+    color: #8190A0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+}
+
+.menu-link {
+    display: block;
+    margin-bottom: 4px;
+    padding: 12px 13px;
+    border-radius: 8px;
+    color: #526174;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.menu-link:hover {
+    background-color: var(--natafin-pale-gold);
+    color: var(--natafin-navy);
+}
+
+.menu-link.active {
+    background-color: var(--natafin-navy);
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.dashboard-page {
+    min-height: 100vh;
+    background-color: var(--natafin-bg);
+    color: var(--natafin-text);
+}
+
+.dashboard-container {
+    width: 100%;
+    max-width: 1800px;
+    margin: 0 auto;
+}
+
+.dashboard-heading {
+    margin-bottom: 1.25rem;
+}
+
+.dashboard-heading h1 {
+    margin: 0;
+    color: var(--natafin-navy);
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.finance-card,
+.dashboard-card {
+    overflow: hidden;
+    border: 1px solid var(--natafin-border);
+    border-radius: 12px;
+    background-color: #FFFFFF;
+    box-shadow: 0 3px 12px rgba(16, 42, 67, 0.04);
+}
+
+.finance-card .card-body {
+    padding: 1.25rem;
+}
+
+.finance-label {
+    margin-bottom: 0.55rem;
+    color: #687586;
+    font-size: 0.92rem;
+    font-weight: 500;
+}
+
+.finance-value {
+    margin: 0;
+    color: var(--natafin-navy);
+    font-size: clamp(1.15rem, 1.5vw, 1.55rem);
+    font-weight: 700;
+    overflow-wrap: anywhere;
+}
+
+.amount-income {
+    color: var(--natafin-green) !important;
+}
+
+.amount-expense {
+    color: var(--natafin-red) !important;
+}
+
+.finance-accent {
+    display: block;
+    width: 42px;
+    height: 4px;
+    margin-top: 1rem;
+    border-radius: 4px;
+}
+
+.income-accent {
+    background-color: var(--natafin-green);
+}
+
+.expense-accent {
+    background-color: var(--natafin-red);
+}
+
+.saving-accent {
+    background-color: var(--natafin-gold-dark);
+}
+
+.balance-accent {
+    background-color: var(--natafin-navy-soft);
+}
+
+.dashboard-card .card-body {
+    min-width: 0;
+}
+
+.panel-title {
+    margin: 0;
+    color: var(--natafin-navy);
+    font-size: 1.12rem;
+    font-weight: 700;
+}
+
+.panel-link {
+    color: var(--natafin-gold-dark);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.panel-link:hover {
+    color: var(--natafin-navy);
+    text-decoration: underline;
+}
+
+.dashboard-card .table {
     font-size: 0.9rem;
 }
 
-@media (max-width: 576px) {
+.dashboard-card .table thead th {
+    padding: 0.8rem 0.65rem;
+    background-color: var(--natafin-pale-gold);
+    color: var(--natafin-navy);
+    font-weight: 600;
+    white-space: nowrap;
+    border-bottom-color: var(--natafin-border);
+}
+
+.dashboard-card .table tbody td {
+    padding: 0.85rem 0.65rem;
+    color: #354354;
+}
+
+.dashboard-card .table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.transaction-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.income-badge {
+    background-color: var(--natafin-green-light);
+    color: #146C43;
+}
+
+.expense-badge {
+    background-color: var(--natafin-red-light);
+    color: #B02A37;
+}
+
+.saving-item {
+    margin-bottom: 1.6rem;
+}
+
+.saving-name {
+    color: #354354;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.saving-percent {
+    color: var(--natafin-gold-dark);
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.saving-progress {
+    height: 8px;
+    border-radius: 10px;
+    background-color: #E9E4D6;
+}
+
+.saving-progress .progress-bar {
+    border-radius: 10px;
+    background-color: var(--natafin-gold);
+}
+
+.saving-detail {
+    margin: 0.55rem 0 0;
+    color: #7A8592;
+    font-size: 0.82rem;
+}
+
+.empty-state {
+    padding: 1.5rem !important;
+    color: #7A8592 !important;
+    text-align: center;
+}
+
+.btn-delete-transaction {
+    border-color: var(--natafin-red);
+    color: var(--natafin-red);
+}
+
+.btn-delete-transaction:hover {
+    background-color: var(--natafin-red);
+    color: #FFFFFF;
+}
+
+.dashboard-footer {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1.5rem 1rem;
+    background-color: var(--natafin-navy);
+    color: #FFFFFF;
+    border-top: 3px solid var(--natafin-gold);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.auth-shell-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    background-color: #E8EEF5;
+    background-image:
+        radial-gradient(circle at 12% 15%, rgba(212, 175, 55, 0.25), transparent 30%),
+        linear-gradient(135deg, #E5ECF4 0%, #F7F1E8 50%, #E5ECF4 100%);
+    background-attachment: fixed;
+}
+
+.auth-single-main {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1rem;
+}
+
+.auth-single-card {
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid var(--natafin-border);
+    border-radius: 14px;
+    background-color: #FFFFFF;
+    box-shadow: 0 12px 35px rgba(16, 42, 67, 0.10);
+}
+
+.auth-single-title {
+    margin-bottom: 1.8rem;
+    color: var(--natafin-navy);
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+.auth-single-card .form-label {
+    color: var(--natafin-navy);
+    font-weight: 600;
+}
+
+.auth-single-card .form-control {
+    min-height: 44px;
+    border-color: #DDE3EA;
+    border-radius: 8px;
+}
+
+.auth-single-card .form-control:focus {
+    border-color: var(--natafin-gold);
+    box-shadow: 0 0 0 0.2rem rgba(212, 175, 55, 0.18);
+}
+
+.auth-single-card .form-check-input:checked {
+    background-color: var(--natafin-navy);
+    border-color: var(--natafin-navy);
+}
+
+.auth-single-card .btn-gold {
+    min-height: 44px;
+    border-radius: 8px;
+}
+
+.auth-single-switch {
+    margin: 1.5rem 0 0;
+    color: #687586;
+    text-align: center;
+}
+
+.auth-single-switch a {
+    color: var(--natafin-gold-dark);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.auth-single-switch a:hover {
+    color: var(--natafin-navy);
+    text-decoration: underline;
+}
+
+.dropdown-menu {
+    border: 1px solid var(--natafin-border);
+    border-radius: 8px;
+    box-shadow: 0 0.5rem 1rem rgba(16, 42, 67, 0.1);
+}
+
+.dropdown-item {
+    padding: 0.6rem 1rem;
+}
+
+.dropdown-item:active,
+.dropdown-item.active {
+    background-color: var(--natafin-navy);
+    color: #FFFFFF;
+}
+
+@media (max-width: 767.98px) {
+    .app-navbar,
+    .app-navbar .container-fluid {
+        min-height: 58px;
+    }
+
+    .brand-placeholder {
+        width: 32px;
+        height: 32px;
+        flex-basis: 32px;
+    }
+
+    .brand-group {
+        gap: 8px;
+    }
+
+    .app-brand {
+        font-size: 1.25rem;
+    }
+
+    .dashboard-heading h1 {
+        font-size: 1.55rem;
+    }
+
+    .finance-card .card-body {
+        padding: 1rem;
+    }
+
+    .dashboard-card .table {
+        min-width: 580px;
+    }
+
+    .auth-shell-page {
+        background-attachment: scroll;
+    }
+
+    .auth-single-main {
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 575.98px) {
     .section-title {
         font-size: 1.25rem;
     }
@@ -162,5 +632,29 @@ body {
 
     .table > :not(caption) > * > * {
         padding: 0.6rem;
+    }
+
+    .menu-toggle {
+        margin-right: 10px;
+    }
+
+    .finance-value {
+        font-size: 1.2rem;
+    }
+
+    .dashboard-container {
+        padding-top: 1.25rem !important;
+    }
+
+    .auth-single-main {
+        padding: 1.5rem 1rem;
+    }
+
+    .auth-single-card .card-body {
+        padding: 1.5rem !important;
+    }
+
+    .auth-single-title {
+        font-size: 1.6rem;
     }
 }
