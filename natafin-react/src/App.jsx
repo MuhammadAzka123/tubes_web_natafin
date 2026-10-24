@@ -1,121 +1,99 @@
 import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
+import AppHeader from './components/AppHeader.jsx'
+import PageIntro from './components/PageIntro.jsx'
+import SummaryCards from './components/SummaryCards.jsx'
+import TransactionForm from './components/TransactionForm.jsx'
+import TransactionList from './components/TransactionList.jsx'
+import AppFooter from './components/AppFooter.jsx'
 import './App.css'
 
+const TRANSAKSI_AWAL = [
+  {
+    id: 1,
+    date: '2026-10-24',
+    description: 'Uang saku bulanan',
+    category: 'Uang Saku',
+    type: 'pemasukan',
+    amount: 1500000,
+  },
+  {
+    id: 2,
+    date: '2026-10-24',
+    description: 'Makan siang',
+    category: 'Makanan',
+    type: 'pengeluaran',
+    amount: 25000,
+  },
+  {
+    id: 3,
+    date: '2026-10-23',
+    description: 'Transportasi ke kampus',
+    category: 'Transportasi',
+    type: 'pengeluaran',
+    amount: 18000,
+  },
+  {
+    id: 4,
+    date: '2026-10-22',
+    description: 'Buku praktikum',
+    category: 'Pendidikan',
+    type: 'pengeluaran',
+    amount: 75000,
+  },
+]
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [transactions, setTransactions] = useState(TRANSAKSI_AWAL)
+
+  function tambahTransaksi(dataTransaksi) {
+    const transaksiBaru = {
+      ...dataTransaksi,
+      id: Date.now(),
+    }
+
+    setTransactions((transaksiSaatIni) => [transaksiBaru, ...transaksiSaatIni])
+  }
+
+  function hapusTransaksi(idTransaksi) {
+    setTransactions((transaksiSaatIni) =>
+      transaksiSaatIni.filter((transaksi) => transaksi.id !== idTransaksi),
+    )
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-shell">
+      <AppHeader title="NataFin" />
 
-      <div className="ticks"></div>
+      <main className="main-container">
+        <PageIntro title="Dashboard" />
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+        <SummaryCards transactions={transactions} />
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
+        <div className="workspace-grid">
+          <section className="panel form-panel" aria-labelledby="form-heading">
+            <div className="panel-heading">
+              <h2 id="form-heading">Tambah Transaksi</h2>
+            </div>
+            <TransactionForm onAddTransaction={tambahTransaksi} />
+          </section>
+
+          <section className="panel transactions-panel" aria-labelledby="list-heading">
+            <div className="panel-heading list-heading">
+              <div>
+                <h2 id="list-heading">Daftar Transaksi</h2>
+              </div>
+              <span className="count-pill">{transactions.length} transaksi</span>
+            </div>
+            <TransactionList
+              transactions={transactions}
+              onDeleteTransaction={hapusTransaksi}
+            />
+          </section>
+        </div>
+      </main>
+
+      <AppFooter year={2026} />
+    </div>
   )
 }
 
