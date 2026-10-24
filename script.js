@@ -1,4 +1,3 @@
-
 const NATAFIN_STORAGE_KEY = "natafinTransactions";
 const TOTAL_TABUNGAN = 500000;
 
@@ -85,6 +84,7 @@ function muatTransaksi() {
 }
 
 let transaksiNataFin = muatTransaksi();
+let idTransaksiDiedit = null;
 
 function simpanTransaksi() {
     try {
@@ -195,11 +195,18 @@ function buatBarisTransaksi(transaksi, denganAksi = false) {
         : "amount-expense";
 
     const aksi = denganAksi
-        ? `<td><button type="button" class="btn btn-sm btn-delete-transaction" data-delete-transaction="${Number(transaksi.id)}">Hapus</button></td>`
+        ? `<td class="text-nowrap">
+                <button type="button" class="btn btn-sm btn-outline-navy me-1" data-edit-transaction="${Number(transaksi.id)}">Edit</button>
+                <button type="button" class="btn btn-sm btn-delete-transaction" data-delete-transaction="${Number(transaksi.id)}">Hapus</button>
+            </td>`
+        : "";
+
+    const kelasBaris = denganAksi && Number(transaksi.id) === idTransaksiDiedit
+        ? ' class="row-editing"'
         : "";
 
     return `
-        <tr>
+        <tr${kelasBaris}>
             <td>${escapeHtml(formatTanggal(transaksi.date))}</td>
             <td>${escapeHtml(transaksi.description)}</td>
             <td>${escapeHtml(transaksi.category)}</td>
@@ -510,6 +517,64 @@ function tanggalHariIni() {
     return `${tahun}-${bulan}-${hari}`;
 }
 
+function isiPilihan(selector, nilai, cadangan) {
+    const elemen = $(selector);
+
+    elemen.val(nilai);
+
+    if (elemen.val() === null) {
+        elemen.val(cadangan);
+    }
+}
+
+function masukModeEdit(idTransaksi) {
+    const transaksi = transaksiNataFin.find(
+        (item) => Number(item.id) === idTransaksi
+    );
+
+    if (!transaksi) {
+        return;
+    }
+
+    idTransaksiDiedit = idTransaksi;
+
+    isiPilihan("#transactionType", transaksi.type, "pengeluaran");
+    isiPilihan("#transactionCategory", transaksi.category, "Lainnya");
+    $("#transactionAmount").val(transaksi.amount);
+    $("#transactionDate").val(transaksi.date);
+    $("#transactionDescription").val(transaksi.description);
+
+    $("#formTitle").text("Edit Transaksi");
+    $("#submitTransactionBtn").text("Simpan Perubahan");
+    $("#cancelEditBtn").removeClass("d-none");
+
+    if (!$("#transactionFormFields").is(":visible")) {
+        $("#transactionFormFields").slideDown(250);
+        $("#toggleTransactionForm").text("Sembunyikan Form");
+    }
+
+    renderTabelTransaksi();
+
+    $("html, body").stop(true).animate({
+        scrollTop: $("#transactionForm").closest("section").offset().top - 80
+    }, 250);
+}
+
+function keluarModeEdit(kosongkanForm = false) {
+    idTransaksiDiedit = null;
+
+    $("#formTitle").text("Form Transaksi");
+    $("#submitTransactionBtn").text("Simpan Transaksi");
+    $("#cancelEditBtn").addClass("d-none");
+
+    if (kosongkanForm) {
+        $("#transactionForm")[0].reset();
+        $("#transactionDate").val(tanggalHariIni());
+    }
+
+    renderTabelTransaksi();
+}
+
 function renderSemua() {
     renderRingkasan();
     renderTransaksiDashboard();
@@ -588,6 +653,27 @@ $(document).ready(function () {
             return;
         }
 
+        if (idTransaksiDiedit !== null) {
+            const transaksiLama = transaksiNataFin.find(
+                (item) => Number(item.id) === idTransaksiDiedit
+            );
+
+            if (transaksiLama) {
+                transaksiLama.date = tanggal;
+                transaksiLama.type = jenis;
+                transaksiLama.category = kategori;
+                transaksiLama.description = keterangan;
+                transaksiLama.amount = nominal;
+            }
+
+            simpanTransaksi();
+            keluarModeEdit(true);
+            renderSemua();
+
+            tampilkanPesan("Transaksi berhasil diperbarui.", "success");
+            return;
+        }
+
         const transaksiBaru = {
             id: Date.now(),
             date: tanggal,
@@ -608,6 +694,25 @@ $(document).ready(function () {
             "Transaksi berhasil ditambahkan ke data lokal NataFin.",
             "success"
         );
+    });
+
+    $("#transactionForm").on("reset", function () {
+        if (idTransaksiDiedit !== null) {
+            keluarModeEdit();
+        }
+
+        setTimeout(function () {
+            $("#transactionDate").val(tanggalHariIni());
+        }, 0);
+    });
+
+    $("#cancelEditBtn").on("click", function () {
+        keluarModeEdit(true);
+        tampilkanPesan("Edit transaksi dibatalkan.", "warning");
+    });
+
+    $(document).on("click", "[data-edit-transaction]", function () {
+        masukModeEdit(Number($(this).attr("data-edit-transaction")));
     });
 
     $("#loginForm").on("submit", function (event) {
@@ -725,6 +830,11 @@ $(document).ready(function () {
             );
 
             simpanTransaksi();
+
+            if (idTransaksi === idTransaksiDiedit) {
+                keluarModeEdit(true);
+            }
+
             renderSemua();
             tampilkanPesan("Transaksi berhasil dihapus.", "success");
         }
