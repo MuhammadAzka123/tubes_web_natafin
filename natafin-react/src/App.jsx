@@ -5,6 +5,7 @@ import SummaryCards from './components/SummaryCards.jsx'
 import TransactionForm from './components/TransactionForm.jsx'
 import TransactionList from './components/TransactionList.jsx'
 import AppFooter from './components/AppFooter.jsx'
+import MockApiPanel from './components/MockApiPanel.jsx'
 import './App.css'
 
 const TRANSAKSI_AWAL = [
@@ -68,6 +69,8 @@ function App() {
         <PageIntro title="Dashboard" />
 
         <SummaryCards transactions={transactions} />
+
+        <MockApiPanel />
 
         <div className="workspace-grid">
           <section className="panel form-panel" aria-labelledby="form-heading">

@@ -1,0 +1,74 @@
+{
+  "transactions": [
+    {
+      "id": 1,
+      "note": "Uang saku bulanan",
+      "category": "income",
+      "amount": 1500000,
+      "transaction_date": "2026-10-24"
+    },
+    {
+      "id": 2,
+      "note": "Makan siang",
+      "category": "expense",
+      "amount": 25000,
+      "transaction_date": "2026-10-24"
+    },
+    {
+      "id": 3,
+      "note": "Transportasi ke kampus",
+      "category": "expense",
+      "amount": 18000,
+      "transaction_date": "2026-10-23"
+    },
+    {
+      "id": 4,
+      "note": "Air mineral",
+      "category": "expense",
+      "amount": 5000,
+      "transaction_date": "2026-10-22"
+    },
+    {
+      "id": 5,
+      "note": "Belanja kebutuhan harian",
+      "category": "expense",
+      "amount": 75000,
+      "transaction_date": "2026-10-20"
+    },
+    {
+      "id": 6,
+      "note": "Pulsa dan paket data",
+      "category": "expense",
+      "amount": 50000,
+      "transaction_date": "2026-10-19"
+    },
+    {
+      "id": 7,
+      "note": "Beli alat tulis",
+      "category": "expense",
+      "amount": 22000,
+      "transaction_date": "2026-10-18"
+    },
+    {
+      "id": 8,
+      "note": "Laundry pakaian",
+      "category": "expense",
+      "amount": 35000,
+      "transaction_date": "2026-10-16"
+    },
+    {
+      "id": 9,
+      "note": "Makan malam",
+      "category": "expense",
+      "amount": 20000,
+      "transaction_date": "2026-10-15"
+    },
+    {
+      "id": 10,
+      "note": "Membeli sarapan",
+      "category": "expense",
+      "amount": 15000,
+      "transaction_date": "2026-10-14"
+    }
+  ]
+}

@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800&display=swap');
+
 :root {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   color: #1f2a37;
   background: #f4f6fa;
   font-synthesis: none;
@@ -30,16 +32,36 @@
 body {
   min-width: 320px;
   margin: 0;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
 button,
 input,
-select {
-  font: inherit;
+select,
+textarea,
+.MuiTypography-root,
+.MuiButton-root,
+.MuiChip-root {
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
 
 button {
   cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.MuiTypography-h1,
+.MuiTypography-h2,
+.MuiTypography-h3,
+.MuiTypography-h4,
+.MuiTypography-h5,
+.MuiTypography-h6 {
+  font-family: 'Poppins', sans-serif !important;
 }
 
 button:focus-visible,
