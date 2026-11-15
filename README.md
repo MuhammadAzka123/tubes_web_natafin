@@ -1,10 +1,10 @@
 # NataFin
 
-## Deskripsi 
+## Deskripsi
 
 NataFin adalah aplikasi web pengelolaan keuangan pribadi yang dirancang untuk membantu pengguna mencatat pemasukan dan pengeluaran, memantau tabungan, serta melihat ringkasan kondisi keuangan.
 
-Proyek ini dikembangkan secara bertahap sebagai bagian dari tugas mata kuliah Pemrograman Web. Pengembangan dimulai dengan HTML, CSS, JavaScript, dan jQuery, kemudian dilanjutkan menggunakan React untuk menerapkan konsep component-based development dan konsumsi Mock API.
+Proyek ini dikembangkan secara bertahap sebagai bagian dari tugas mata kuliah Pemrograman Web. Pengembangan dimulai dengan HTML, CSS, JavaScript, dan jQuery, kemudian dilanjutkan menggunakan React untuk menerapkan konsep component-based development dan konsumsi Mock API. Pada Minggu 9, aplikasi mulai dilengkapi dengan backend menggunakan NestJS.
 
 ## Fitur Aplikasi
 
@@ -19,6 +19,9 @@ Proyek ini dikembangkan secara bertahap sebagai bagian dari tugas mata kuliah Pe
 - **Konsumsi Mock API:** Mengambil dan menampilkan data transaksi menggunakan Fetch API dan JSON Server.
 - **Loading dan Error Handling:** Menampilkan indikator loading, data berhasil dimuat, dan pesan error.
 - **Retry:** Mengulangi permintaan data melalui tombol Coba Lagi.
+- **REST API:** Mengelola data transaksi melalui backend NestJS.
+- **Validasi Backend:** Memvalidasi data menggunakan class-validator dan ValidationPipe.
+- **Integrasi Frontend dan Backend:** Menghubungkan React dengan NestJS untuk melakukan operasi tambah, tampil, ubah, dan hapus transaksi.
 
 ## Teknologi yang Digunakan
 
@@ -39,6 +42,15 @@ Proyek ini dikembangkan secara bertahap sebagai bagian dari tugas mata kuliah Pe
 - Material UI (MUI)
 - CSS
 
+**Pengembangan Backend (Minggu 9)**
+- Node.js
+- NestJS
+- TypeScript
+- REST API
+- class-validator
+- class-transformer
+- Dependency Injection
+
 ## Struktur Folder
 
 ```text
@@ -55,7 +67,8 @@ tubes_web_natafin/
 │       ├── minggu-4/
 │       ├── minggu-5/
 │       ├── minggu-6/
-│       └── minggu-7/
+│       ├── minggu-7/
+│       └── minggu-9/
 ├── pages/
 │   ├── akun/
 │   ├── keuangan/
@@ -68,6 +81,20 @@ tubes_web_natafin/
 │   ├── package.json
 │   ├── package-lock.json
 │   └── vite.config.js
+├── natafin-backend/
+│   ├── src/
+│   │   ├── transactions/
+│   │   │   ├── dto/
+│   │   │   ├── entities/
+│   │   │   ├── transactions.controller.ts
+│   │   │   ├── transactions.module.ts
+│   │   │   └── transactions.service.ts
+│   │   ├── app.module.ts
+│   │   └── main.ts
+│   ├── test/
+│   ├── transactions.http
+│   ├── package.json
+│   └── package-lock.json
 ├── .gitignore
 ├── index.html
 ├── script.js
@@ -106,7 +133,7 @@ Fitur ini menerapkan beberapa kondisi:
 
 Material UI (MUI) digunakan untuk membangun komponen antarmuka seperti kartu transaksi, indikator loading, pesan error, tombol, dan label kategori transaksi.
 
-## Implementasi Backend NestJS (Minggu 9)
+## Implementasi Backend NestJS dan Struktur MVC (Minggu 9)
 
 Pada Minggu 9, NataFin dikembangkan dengan menambahkan fondasi backend menggunakan NestJS dan TypeScript. Backend dibuat dengan struktur MVC untuk mengelola data transaksi melalui REST API.
 
@@ -135,31 +162,63 @@ Data transaksi sementara disimpan menggunakan array di dalam Service.
 
 Frontend React diintegrasikan dengan backend NestJS melalui Fetch API. Integrasi mencakup proses menampilkan, menambahkan, mengubah, dan menghapus transaksi melalui dashboard NataFin.
 
-### Dokumentasi Screenshot
+Backend menyediakan endpoint utama:
 
-Dokumentasi pengerjaan Minggu 9 tersedia di folder `docs/screenshots/minggu-9/`.
+`http://localhost:3000/transactions`
 
-## Cara Menjalankan Aplikasi React
+### Pengujian REST API
 
-Masuk ke folder `natafin-react`, kemudian instal dependencies:
+Pengujian endpoint dilakukan menggunakan REST Client pada Visual Studio Code melalui file `transactions.http`.
+
+Pengujian mencakup:
+- Pengambilan seluruh data transaksi.
+- Penambahan transaksi.
+- Pengambilan transaksi berdasarkan ID.
+- Perubahan data transaksi.
+- Penghapusan transaksi.
+- Pengujian transaksi duplikat.
+- Pengujian validasi input.
+
+## Cara Menjalankan Aplikasi
+
+Untuk menjalankan versi React dan backend NestJS, gunakan tiga terminal berbeda.
+
+**1. Menjalankan JSON Server**
+
+Masuk ke folder `natafin-react`:
 
 ```bash
+cd natafin-react
 npm install
-```
-
-Jalankan JSON Server pada terminal pertama:
-
-```bash
 npm run mock-api
 ```
 
-Jalankan aplikasi React pada terminal kedua:
+JSON Server berjalan pada port `3001`.
+
+**2. Menjalankan React + Vite**
+
+Buka terminal kedua, lalu masuk ke folder `natafin-react`:
 
 ```bash
+cd natafin-react
 npm run dev
 ```
 
-Buka alamat lokal yang ditampilkan oleh Vite di browser. JSON Server dan aplikasi React harus berjalan bersamaan agar data transaksi dapat ditampilkan.
+Aplikasi React berjalan pada port `5173`.
+
+**3. Menjalankan Backend NestJS**
+
+Buka terminal ketiga, lalu masuk ke folder `natafin-backend`:
+
+```bash
+cd natafin-backend
+npm install
+npm run start:dev
+```
+
+Backend NestJS berjalan pada port `3000`.
+
+Ketiga server perlu berjalan bersamaan agar fitur Mock API dan integrasi frontend-backend dapat digunakan.
 
 ## Dokumentasi Screenshot
 
@@ -171,12 +230,15 @@ Dokumentasi pengembangan NataFin disimpan dalam folder `docs/screenshots/` dan d
 - `docs/screenshots/minggu-5/`
 - `docs/screenshots/minggu-6/`
 - `docs/screenshots/minggu-7/`
+- `docs/screenshots/minggu-9/`
 
 Dokumentasi Minggu 5 mencakup pengujian interaktivitas aplikasi, seperti penambahan, pengeditan, pencarian, filter, dan penghapusan transaksi.
 
 Dokumentasi Minggu 6 mencakup setup React dengan Vite, struktur komponen, tampilan dashboard, dan interaksi transaksi.
 
 Dokumentasi Minggu 7 mencakup pengujian konsumsi Mock API dengan kondisi loading, success, dan error.
+
+Dokumentasi Minggu 9 mencakup setup backend NestJS, struktur resource Transactions, pengujian REST API, validasi data, penanganan error, dan integrasi frontend dengan backend.
 
 ## Video Demonstrasi
 
