@@ -20,12 +20,17 @@ const kategoriTransaksi = [
   'Lainnya',
 ]
 
-function TransactionForm({ onAddTransaction }) {
-  const [type, setType] = useState('pengeluaran')
-  const [category, setCategory] = useState('Makanan')
-  const [amount, setAmount] = useState('')
-  const [date, setDate] = useState(tanggalHariIni())
-  const [description, setDescription] = useState('')
+function TransactionForm({
+  onAddTransaction,
+  editingTransaction,
+  onUpdateTransaction,
+  onCancelEdit,
+}) {
+  const [type, setType] = useState(editingTransaction?.type ?? 'pengeluaran')
+  const [category, setCategory] = useState(editingTransaction?.category ?? 'Makanan')
+  const [amount, setAmount] = useState(String(editingTransaction?.amount ?? ''))
+  const [date, setDate] = useState(editingTransaction?.date ?? tanggalHariIni())
+  const [description, setDescription] = useState(editingTransaction?.description ?? '')
   const [message, setMessage] = useState('')
 
   function resetForm() {
@@ -37,7 +42,7 @@ function TransactionForm({ onAddTransaction }) {
     setMessage('')
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
 
     if (!description.trim() || !amount || Number(amount) <= 0 || !date) {
@@ -45,15 +50,30 @@ function TransactionForm({ onAddTransaction }) {
       return
     }
 
-    onAddTransaction({
-      type,
-      category,
-      amount: Number(amount),
-      date,
-      description: description.trim(),
-    })
+    try {
+      const dataTransaksi = {
+        type,
+        category,
+        amount: Number(amount),
+        date,
+        description: description.trim(),
+      }
 
+      if (editingTransaction) {
+        await onUpdateTransaction(editingTransaction.id, dataTransaksi)
+      } else {
+        await onAddTransaction(dataTransaksi)
+      }
+
+      resetForm()
+    } catch (error) {
+      setMessage(error.message || 'Transaksi gagal diproses.')
+    }
+  }
+
+  function handleCancelEdit() {
     resetForm()
+    onCancelEdit()
   }
 
   return (
@@ -123,13 +143,34 @@ function TransactionForm({ onAddTransaction }) {
         />
       </div>
 
-      {message && <p className="form-message" role="alert">{message}</p>}
+      {message && (
+        <p className="form-message" role="alert">
+          {message}
+        </p>
+      )}
 
       <div className="form-actions form-field-full">
-        <button className="button button-primary" type="submit">Tambah Transaksi</button>
-        <button className="button button-secondary" type="button" onClick={resetForm}>
-          Kosongkan
+        <button className="button button-primary" type="submit">
+          {editingTransaction ? 'Simpan Perubahan' : 'Tambah Transaksi'}
         </button>
+
+        {editingTransaction ? (
+          <button
+            className="button button-secondary"
+            type="button"
+            onClick={handleCancelEdit}
+          >
+            Batal Edit
+          </button>
+        ) : (
+          <button
+            className="button button-secondary"
+            type="button"
+            onClick={resetForm}
+          >
+            Kosongkan
+          </button>
+        )}
       </div>
     </form>
   )

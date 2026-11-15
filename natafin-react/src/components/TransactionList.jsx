@@ -1,6 +1,10 @@
 import TransactionItem from './TransactionItem.jsx'
 
-function TransactionList({ transactions, onDeleteTransaction }) {
+function TransactionList({
+  transactions,
+  onDeleteTransaction,
+  onEditTransaction,
+}) {
   if (transactions.length === 0) {
     return (
       <div className="empty-state">
@@ -16,6 +20,7 @@ function TransactionList({ transactions, onDeleteTransaction }) {
           key={transaction.id}
           transaction={transaction}
           onDeleteTransaction={onDeleteTransaction}
+          onEditTransaction={onEditTransaction}
         />
       ))}
     </div>

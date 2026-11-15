@@ -1,0 +1,11 @@
+### POST - Menambahkan transaksi
+POST http://localhost:3000/transactions
+Content-Type: application/json
+
+{
+  "description": "Makan siang",
+  "amount": 25000,
+  "category": "expense",
+  "category_name": "Makanan",
+  "transaction_date": "2026-11-15"
+}

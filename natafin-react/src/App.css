@@ -348,7 +348,6 @@
   text-align: center;
 }
 
-
 .empty-state h3 {
   margin: 0;
   color: var(--natafin-navy);
@@ -378,6 +377,24 @@
 .app-footer p {
   margin: 0;
   font-weight: 700;
+}
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.transaction-action-button {
+  display: inline-flex;
+  width: 64px;
+  height: 42px;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  padding: 0 8px;
+  line-height: 1;
 }
 
 @media (max-width: 1000px) {
@@ -482,10 +499,22 @@
     font-size: 0.78rem;
   }
 
-  .delete-button {
+  .transaction-actions {
     grid-column: 2;
     grid-row: 1 / span 2;
     align-self: center;
+    justify-self: end;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .transaction-action-button {
+    width: 64px;
+    height: 36px;
+    min-height: 36px;
+    padding: 0 8px;
+    font-size: 0.7rem;
+    flex: none;
   }
 
   .transaction-description {
