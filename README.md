@@ -106,6 +106,39 @@ Fitur ini menerapkan beberapa kondisi:
 
 Material UI (MUI) digunakan untuk membangun komponen antarmuka seperti kartu transaksi, indikator loading, pesan error, tombol, dan label kategori transaksi.
 
+## Implementasi Backend NestJS (Minggu 9)
+
+Pada Minggu 9, NataFin dikembangkan dengan menambahkan fondasi backend menggunakan NestJS dan TypeScript. Backend dibuat dengan struktur MVC untuk mengelola data transaksi melalui REST API.
+
+### Struktur Backend
+
+Backend menggunakan resource Transactions yang terdiri dari:
+- **Entity:** Mendefinisikan struktur data transaksi.
+- **DTO:** Mengatur bentuk data dan validasi input.
+- **Controller:** Menangani request HTTP.
+- **Service:** Mengelola logika bisnis dan operasi CRUD.
+- **Module:** Menghubungkan Controller dan Service.
+
+### Fitur Backend
+
+- **GET:** Mengambil seluruh transaksi dan transaksi berdasarkan ID.
+- **POST:** Menambahkan transaksi baru.
+- **PATCH:** Mengubah data transaksi.
+- **DELETE:** Menghapus transaksi.
+- **Validasi Data:** Menggunakan class-validator dan ValidationPipe.
+- **Penanganan Error:** Menggunakan NotFoundException dan ConflictException.
+- **Dependency Injection:** Menghubungkan Controller dengan Service.
+
+Data transaksi sementara disimpan menggunakan array di dalam Service.
+
+### Integrasi Frontend dan Backend
+
+Frontend React diintegrasikan dengan backend NestJS melalui Fetch API. Integrasi mencakup proses menampilkan, menambahkan, mengubah, dan menghapus transaksi melalui dashboard NataFin.
+
+### Dokumentasi Screenshot
+
+Dokumentasi pengerjaan Minggu 9 tersedia di folder `docs/screenshots/minggu-9/`.
+
 ## Cara Menjalankan Aplikasi React
 
 Masuk ke folder `natafin-react`, kemudian instal dependencies:
