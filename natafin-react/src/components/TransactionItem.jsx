@@ -44,16 +44,16 @@ function TransactionItem({
 
       <div className="transaction-actions">
         <button
-          className="button button-secondary transaction-action-button"
           type="button"
+          className="transaction-action-button transaction-edit-button"
           onClick={() => onEditTransaction(transaction)}
         >
           Edit
         </button>
 
         <button
-          className="delete-button transaction-action-button"
           type="button"
+          className="transaction-action-button transaction-delete-button"
           onClick={() => onDeleteTransaction(transaction.id)}
           aria-label={`Hapus transaksi ${transaction.description}`}
         >

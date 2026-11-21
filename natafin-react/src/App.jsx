@@ -6,6 +6,7 @@ import TransactionForm from './components/TransactionForm.jsx'
 import TransactionList from './components/TransactionList.jsx'
 import AppFooter from './components/AppFooter.jsx'
 import MockApiPanel from './components/MockApiPanel.jsx'
+import ConfirmDialog from './components/ConfirmDialog.jsx'
 import './App.css'
 
 const API_URL = 'http://localhost:3000/transactions'
@@ -27,6 +28,7 @@ function App() {
   const [loadError, setLoadError] = useState('')
   const [apiMessage, setApiMessage] = useState('')
   const [editingTransaction, setEditingTransaction] = useState(null)
+  const [deleteTarget, setDeleteTarget] = useState(null)
 
   useEffect(() => {
     const controller = new AbortController()
@@ -69,7 +71,10 @@ function App() {
       body: JSON.stringify({
         description: dataTransaksi.description,
         amount: dataTransaksi.amount,
-        category: dataTransaksi.type === 'pemasukan' ? 'income' : 'expense',
+        category:
+          dataTransaksi.type === 'pemasukan'
+            ? 'income'
+            : 'expense',
         category_name: dataTransaksi.category,
         transaction_date: dataTransaksi.date,
       }),
@@ -85,7 +90,10 @@ function App() {
       throw new Error(pesan || 'Gagal menambahkan transaksi')
     }
 
-    setTransactions((current) => [formatTransaksi(data), ...current])
+    setTransactions((current) => [
+      formatTransaksi(data),
+      ...current,
+    ])
   }
 
   async function ubahTransaksi(idTransaksi, dataTransaksi) {
@@ -97,7 +105,10 @@ function App() {
       body: JSON.stringify({
         description: dataTransaksi.description,
         amount: dataTransaksi.amount,
-        category: dataTransaksi.type === 'pemasukan' ? 'income' : 'expense',
+        category:
+          dataTransaksi.type === 'pemasukan'
+            ? 'income'
+            : 'expense',
         category_name: dataTransaksi.category,
         transaction_date: dataTransaksi.date,
       }),
@@ -115,37 +126,62 @@ function App() {
 
     setTransactions((current) =>
       current.map((transaction) =>
-        transaction.id === idTransaksi ? formatTransaksi(data) : transaction,
+        transaction.id === idTransaksi
+          ? formatTransaksi(data)
+          : transaction,
       ),
     )
 
-    setEditingTransaction(null)
     setApiMessage('')
   }
 
-  async function hapusTransaksi(idTransaksi) {
+  function mulaiHapusTransaksi(idTransaksi) {
+    const transaksi = transactions.find(
+      (item) => item.id === idTransaksi,
+    )
+
+    if (transaksi) {
+      setDeleteTarget(transaksi)
+      setApiMessage('')
+    }
+  }
+
+  async function konfirmasiHapusTransaksi() {
+    if (!deleteTarget) return
+
     try {
-      const response = await fetch(`${API_URL}/${idTransaksi}`, {
-        method: 'DELETE',
-      })
+      const response = await fetch(
+        `${API_URL}/${deleteTarget.id}`,
+        {
+          method: 'DELETE',
+        },
+      )
 
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || 'Gagal menghapus transaksi')
+        const pesan = Array.isArray(data.message)
+          ? data.message.join(', ')
+          : data.message
+
+        throw new Error(pesan || 'Gagal menghapus transaksi')
       }
 
       setTransactions((current) =>
-        current.filter((transaction) => transaction.id !== idTransaksi),
+        current.filter(
+          (transaction) => transaction.id !== deleteTarget.id,
+        ),
       )
 
-      if (editingTransaction?.id === idTransaksi) {
+      if (editingTransaction?.id === deleteTarget.id) {
         setEditingTransaction(null)
       }
 
       setApiMessage('')
     } catch (error) {
       setApiMessage(error.message || 'Gagal menghapus transaksi')
+    } finally {
+      setDeleteTarget(null)
     }
   }
 
@@ -170,10 +206,15 @@ function App() {
         <MockApiPanel />
 
         <div id="transaksi" className="workspace-grid">
-          <section className="panel form-panel" aria-labelledby="form-heading">
+          <section
+            className="panel form-panel"
+            aria-labelledby="form-heading"
+          >
             <div className="panel-heading">
               <h2 id="form-heading">
-                {editingTransaction ? 'Edit Transaksi' : 'Tambah Transaksi'}
+                {editingTransaction
+                  ? 'Edit Transaksi'
+                  : 'Tambah Transaksi'}
               </h2>
             </div>
 
@@ -186,7 +227,10 @@ function App() {
             />
           </section>
 
-          <section className="panel transactions-panel" aria-labelledby="list-heading">
+          <section
+            className="panel transactions-panel"
+            aria-labelledby="list-heading"
+          >
             <div className="panel-heading list-heading">
               <div>
                 <h2 id="list-heading">Daftar Transaksi</h2>
@@ -197,7 +241,9 @@ function App() {
               </span>
             </div>
 
-            {apiMessage && <p role="alert">{apiMessage}</p>}
+            {apiMessage && (
+              <p role="alert">{apiMessage}</p>
+            )}
 
             {loading ? (
               <p>Memuat daftar transaksi...</p>
@@ -206,13 +252,26 @@ function App() {
             ) : (
               <TransactionList
                 transactions={transactions}
-                onDeleteTransaction={hapusTransaksi}
+                onDeleteTransaction={mulaiHapusTransaksi}
                 onEditTransaction={mulaiEditTransaksi}
               />
             )}
           </section>
         </div>
       </main>
+
+      <ConfirmDialog
+        open={Boolean(deleteTarget)}
+        title="Hapus transaksi ini?"
+        message={
+          deleteTarget
+            ? `Keterangan: ${deleteTarget.description}\n\nPeringatan: Data yang dihapus tidak bisa dikembalikan.`
+            : ''
+        }
+        confirmLabel="Ya, Hapus"
+        onConfirm={konfirmasiHapusTransaksi}
+        onCancel={() => setDeleteTarget(null)}
+      />
 
       <AppFooter year={2026} />
     </div>

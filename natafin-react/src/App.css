@@ -574,3 +574,165 @@ html {
     text-align: center;
   }
 }
+
+.summary-balance {
+  border-color: var(--natafin-navy, #12304F);
+  background: var(--natafin-navy, #12304F);
+}
+
+.summary-balance .summary-label,
+.summary-balance .summary-value {
+  color: #ffffff;
+}
+
+.confirm-dialog-paper {
+  border: 1px solid var(--natafin-border);
+  border-radius: 14px !important;
+  font-family: inherit;
+}
+
+.confirm-dialog-title {
+  color: var(--natafin-navy);
+  font-family: 'Poppins', sans-serif !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+}
+
+.confirm-dialog-message {
+  color: var(--natafin-muted) !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.9rem !important;
+  line-height: 1.65 !important;
+  white-space: pre-line;
+}
+
+.confirm-dialog-actions {
+  gap: 8px;
+  padding: 8px 24px 20px !important;
+}
+
+.confirm-dialog-cancel,
+.confirm-dialog-confirm {
+  border-radius: 8px !important;
+  font-family: 'Plus Jakarta Sans', sans-serif !important;
+  font-size: 0.85rem !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+}
+
+.confirm-dialog-cancel {
+  border-color: var(--natafin-border) !important;
+  color: var(--natafin-navy) !important;
+}
+
+.confirm-dialog-confirm {
+  background: var(--natafin-gold) !important;
+  color: var(--natafin-navy-dark) !important;
+}
+
+.confirm-dialog-confirm:hover {
+  background: var(--natafin-gold-dark) !important;
+}
+
+.confirm-dialog-danger {
+  border: 1px solid var(--natafin-red) !important;
+  background: var(--natafin-red) !important;
+  color: #ffffff !important;
+}
+
+.confirm-dialog-danger:hover {
+  background: var(--natafin-red) !important;
+  filter: brightness(0.92);
+}
+
+.transaction-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.transaction-action-button {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 84px;
+  min-width: 84px;
+  height: 42px;
+  padding: 0 16px;
+
+  border: 1px solid;
+  border-radius: 8px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2;
+
+  white-space: nowrap;
+  cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.transaction-edit-button {
+  color: #12304F;
+  background-color: #FFFFFF;
+  border-color: #5B7894;
+}
+
+.transaction-edit-button:hover {
+  color: #12304F;
+  background-color: #EAF0F7;
+  border-color: #5B7894;
+}
+
+.transaction-delete-button {
+  color: #C62828;
+  background-color: #FFFFFF;
+  border-color: #C62828;
+}
+
+.transaction-delete-button:hover {
+  color: #C62828;
+  background-color: #FDECEC;
+  border-color: #C62828;
+}
+
+.transaction-action-button:focus-visible {
+  outline: 3px solid var(--natafin-navy, #12304F);
+  outline-offset: 3px;
+  box-shadow: none;
+}
+
+.transaction-action-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@media (max-width: 640px) {
+  .transaction-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: 100%;
+    gap: 8px;
+  }
+
+  .transaction-action-button {
+    width: 100%;
+    min-width: 0;
+    height: 42px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transaction-action-button {
+    transition: none;
+  }
+}

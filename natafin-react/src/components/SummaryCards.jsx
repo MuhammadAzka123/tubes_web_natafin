@@ -19,6 +19,11 @@ function SummaryCards({ transactions }) {
 
   const ringkasan = [
     {
+      label: 'Sisa Saldo',
+      value: formatRupiah(pemasukan - pengeluaran),
+      tone: 'balance',
+    },
+    {
       label: 'Total Pemasukan',
       value: formatRupiah(pemasukan),
       tone: 'income',
@@ -27,11 +32,6 @@ function SummaryCards({ transactions }) {
       label: 'Total Pengeluaran',
       value: formatRupiah(pengeluaran),
       tone: 'expense',
-    },
-    {
-      label: 'Sisa Saldo',
-      value: formatRupiah(pemasukan - pengeluaran),
-      tone: 'balance',
     },
     {
       label: 'Jumlah Transaksi',

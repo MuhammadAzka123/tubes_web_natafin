@@ -8,21 +8,43 @@ import {
 } from 'class-validator'
 
 export class CreateTransactionDto {
-  @IsString()
-  @MinLength(3)
+  @IsString({
+    message: 'Keterangan harus berupa teks.',
+  })
+  @MinLength(3, {
+    message: 'Keterangan minimal 3 karakter.',
+  })
   description!: string
 
-  @IsNumber()
-  @Min(1)
+  @IsNumber(
+    {},
+    {
+      message: 'Nominal transaksi harus berupa angka.',
+    },
+  )
+  @Min(1, {
+    message: 'Nominal transaksi minimal Rp1.',
+  })
   amount!: number
 
-  @IsIn(['income', 'expense'])
+  @IsIn(['income', 'expense'], {
+    message: 'Jenis transaksi harus pemasukan atau pengeluaran.',
+  })
   category!: 'income' | 'expense'
 
-  @IsString()
-  @MinLength(3)
+  @IsString({
+    message: 'Kategori harus berupa teks.',
+  })
+  @MinLength(3, {
+    message: 'Kategori minimal 3 karakter.',
+  })
   category_name!: string
 
-  @IsDateString()
+  @IsDateString(
+    {},
+    {
+      message: 'Format tanggal transaksi tidak valid.',
+    },
+  )
   transaction_date!: string
 }
