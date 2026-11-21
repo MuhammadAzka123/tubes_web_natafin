@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 .app-shell {
   display: flex;
   min-height: 100vh;
@@ -5,6 +9,9 @@
 }
 
 .app-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   background: var(--natafin-navy);
   color: #ffffff;
 }
@@ -12,6 +19,8 @@
 .header-inner {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  gap: 20px;
   width: min(1180px, calc(100% - 48px));
   min-height: 66px;
   margin: 0 auto;
@@ -23,6 +32,35 @@
   font-size: 1.4rem;
   font-weight: 800;
   letter-spacing: -0.03em;
+}
+
+.app-nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+}
+
+.app-nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.app-nav a:hover {
+  color: var(--natafin-gold);
+}
+
+.app-nav a:focus-visible {
+  outline: 2px solid var(--natafin-gold);
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+
+#dashboard,
+#transaksi {
+  scroll-margin-top: 85px;
 }
 
 .main-container {
@@ -362,23 +400,6 @@
   line-height: 1.5;
 }
 
-.app-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 64px;
-  padding: 20px 14px;
-  background: var(--natafin-navy);
-  color: #ffffff;
-  font-size: 0.78rem;
-  text-align: center;
-}
-
-.app-footer p {
-  margin: 0;
-  font-weight: 700;
-}
-
 .transaction-actions {
   display: flex;
   align-items: center;
@@ -395,6 +416,23 @@
   box-sizing: border-box;
   padding: 0 8px;
   line-height: 1;
+}
+
+.app-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 64px;
+  padding: 20px 14px;
+  background: var(--natafin-navy);
+  color: #ffffff;
+  font-size: 0.78rem;
+  text-align: center;
+}
+
+.app-footer p {
+  margin: 0;
+  font-weight: 700;
 }
 
 @media (max-width: 1000px) {
@@ -419,10 +457,19 @@
 
   .header-inner {
     min-height: 58px;
+    gap: 12px;
   }
 
   .brand-name {
-    font-size: 1.25rem;
+    font-size: 1.15rem;
+  }
+
+  .app-nav {
+    gap: 14px;
+  }
+
+  .app-nav a {
+    font-size: 0.72rem;
   }
 
   .main-container {

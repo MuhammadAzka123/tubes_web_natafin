@@ -162,14 +162,14 @@ function App() {
     <div className="app-shell">
       <AppHeader title="NataFin" />
 
-      <main className="main-container">
+      <main id="dashboard" className="main-container">
         <PageIntro title="Dashboard" />
 
         <SummaryCards transactions={transactions} />
 
         <MockApiPanel />
 
-        <div className="workspace-grid">
+        <div id="transaksi" className="workspace-grid">
           <section className="panel form-panel" aria-labelledby="form-heading">
             <div className="panel-heading">
               <h2 id="form-heading">
